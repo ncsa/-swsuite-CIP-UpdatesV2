@@ -44,7 +44,7 @@ COMPUTE_NODES = ['hal{}{}'.format("0" if i < 10 else "", i) for i in range(1, 1+
 def display(hide_names, jobid_info, node_info, allowed_users, display_select_users):
     MAX_PROC = 160
     BIN_SIZE = 16
-    MAX_NUM_GPUS = 4
+    MAX_NUM_GPUS = 8
     BARLENGTH = 7
     DATABARLENGTH = BARLENGTH - 2
     CGGAP= 4
