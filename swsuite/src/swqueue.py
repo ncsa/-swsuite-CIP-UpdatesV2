@@ -38,7 +38,7 @@ import re
 import random
 import argparse
 
-NUM_COMPUTE_NODES = 16
+NUM_COMPUTE_NODES = 1
 COMPUTE_NODES = ['hal{}{}'.format("0" if i < 10 else "", i) for i in range(1, 1+NUM_COMPUTE_NODES)]
 
 def display(hide_names, jobid_info, node_info, allowed_users, display_select_users):
@@ -199,7 +199,7 @@ def display(hide_names, jobid_info, node_info, allowed_users, display_select_use
     print("| nodes | 1{}CPUS{}64{}128{}160{}| 1{}GPUS{}4{} | nodes |".format("."*12, "."*13, "."*30, "."*13, " "*(CGGAP-1), "."*9, "."*10, " "*0))
     print(LINE_BREAK)
     for i in range(NUM_COMPUTE_NODES):
-        node_line = " " + colorize("hal{}{}", check_load(all_cpus[i])).format("0" if i+1 < 10 else "", i+1) + " "
+        node_line = "" + colorize("hal-dgx", check_load(all_cpus[i]))+""
 
         ###### INITIAL ######
         print(VDIV + node_line + VDIV, end="")
