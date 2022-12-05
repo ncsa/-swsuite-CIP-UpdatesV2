@@ -313,7 +313,7 @@ def get_nodes(info):
         pass
     else:
         if(not(info.isnumeric())):
-            nodes [1]
+            nodes = [1]
         else:
             nodes = [int(info)]
 
