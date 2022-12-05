@@ -42,7 +42,7 @@ NUM_COMPUTE_NODES = 1
 COMPUTE_NODES = ['hal{}{}'.format("0" if i < 10 else "", i) for i in range(1, 1+NUM_COMPUTE_NODES)]
 
 def display(hide_names, jobid_info, node_info, allowed_users, display_select_users):
-    MAX_PROC = 160
+    MAX_PROC = 256
     BIN_SIZE = 16
     MAX_NUM_GPUS = 8
     BARLENGTH = 7
@@ -196,7 +196,7 @@ def display(hide_names, jobid_info, node_info, allowed_users, display_select_use
 
     final_strings_list = [LINE_BREAK]
     print(LINE_BREAK)
-    print("|  nodes  | 1{}CPUS{}64{}128{}160{}| 1{}GPUS{}4{} |  nodes  |".format("."*12, "."*13, "."*30, "."*13, " "*(CGGAP-1), "."*24, "."*23, " "*0))
+    print("|  nodes  | 1{}CPUS{}64{}128{}160{}256{}| 1{}GPUS{}4{} |  nodes  |".format("."*12, "."*13, "."*30, "."*13,"."*45, " "*(CGGAP-1), "."*24, "."*23, " "*0))
     print(LINE_BREAK)
     for i in range(NUM_COMPUTE_NODES):
         node_line = " " + colorize("hal-dgx", check_load(all_cpus[i]))+" "
