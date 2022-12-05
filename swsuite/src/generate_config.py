@@ -9,13 +9,13 @@ def generate_config():
 
     with open('config.yaml', 'w') as file:
         # TODO: yaml on local comp is 6.0, but hal-login 2 is 3.12. Due to this, sort_keys does not exist, which means YAML file won't have order
-        documents = yaml.dump(config_as_dict, file, default_flow_style=False, sort_keys=False)
+        documents = yaml.dump(config_as_dict, file, default_flow_style=False)
 
 def get_data_for_config():
     
     node_info = subprocess.check_output(['sh','generate_config.sh'], stderr=subprocess.STDOUT)
     #node_info = b'NODELIST             S:C:T      MEMORY    GRES       \nhal[01-16]           2:20:4     256000    gpu:v100:4 \nhal-data             2:10:2     128000    (null)     \n'
-    line = node_info.decode("utf-8").split('\n')[1]
+    line = node_info.decode("utf-8").split('\n')[2]
     components = line.split()
     sct = components[1].split(":")
     
