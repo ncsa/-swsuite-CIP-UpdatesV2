@@ -53,7 +53,7 @@ def display(hide_names, jobid_info, node_info, allowed_users, display_select_use
     VDIV = "|"
     HDIV = "-"
     HDIV2 = "#"
-    LINE_BREAK = (VDIV + HDIV*7) + (VDIV + HDIV*BARLENGTH)*(MAX_PROC//BIN_SIZE) + VDIV*1 + "*"*(CGGAP+1) + VDIV + (HDIV*6 + VDIV)*MAX_NUM_GPUS + (HDIV*7 + VDIV)
+    LINE_BREAK = (VDIV + HDIV*9) + (VDIV + HDIV*BARLENGTH)*(MAX_PROC//BIN_SIZE) + VDIV*1 + "*"*(CGGAP+1) + VDIV + (HDIV*6 + VDIV)*MAX_NUM_GPUS + (HDIV*9 + VDIV)
 
     BLACK_TEXT = '\033[30m'
     WHITE_TEXT = '\033[97m'
@@ -196,10 +196,10 @@ def display(hide_names, jobid_info, node_info, allowed_users, display_select_use
 
     final_strings_list = [LINE_BREAK]
     print(LINE_BREAK)
-    print("| nodes | 1{}CPUS{}64{}128{}160{}| 1{}GPUS{}4{} | nodes |".format("."*12, "."*13, "."*30, "."*13, " "*(CGGAP-1), "."*24, "."*23, " "*0))
+    print("|  nodes  | 1{}CPUS{}64{}128{}160{}| 1{}GPUS{}4{} |  nodes  |".format("."*12, "."*13, "."*30, "."*13, " "*(CGGAP-1), "."*24, "."*23, " "*0))
     print(LINE_BREAK)
     for i in range(NUM_COMPUTE_NODES):
-        node_line = "" + colorize("hal-dgx", check_load(all_cpus[i]))+""
+        node_line = " " + colorize("hal-dgx", check_load(all_cpus[i]))+" "
 
         ###### INITIAL ######
         print(VDIV + node_line + VDIV, end="")
