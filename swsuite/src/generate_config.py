@@ -15,6 +15,7 @@ def generate_config():
 
     with open('../conf/config.yaml', 'w') as file:
 
+
         file.write('---')
         file.write('\n')
         for key, value in config_as_dict.items():
