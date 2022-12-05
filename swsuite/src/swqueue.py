@@ -40,6 +40,8 @@ import argparse
 
 NUM_COMPUTE_NODES = 16
 COMPUTE_NODES = ['hal{}{}'.format("0" if i < 10 else "", i) for i in range(1, 1+NUM_COMPUTE_NODES)]
+global globaltest
+globaltest=1
 
 def display(hide_names, jobid_info, node_info, allowed_users, display_select_users):
     MAX_PROC = 160
@@ -301,6 +303,7 @@ def get_nodes_from_range(node_range):
     return nodes
 
 def get_nodes(info):
+    global globaltest
     nodes = []
     if info[0] == '[':
         info = info.replace('[', '').replace(']', '').split(',')
@@ -312,7 +315,11 @@ def get_nodes(info):
     elif info == '-data':
         pass
     else:
-        nodes = [int(info)]
+        if(not(info.isnumeric())):
+            nodes [globaltest]
+            globaltest+=1
+        else:
+            nodes = [int(info)]
 
     nodes = [COMPUTE_NODES[i-1] for i in nodes[:16]]
     return nodes
