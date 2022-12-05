@@ -196,7 +196,7 @@ def display(hide_names, jobid_info, node_info, allowed_users, display_select_use
 
     final_strings_list = [LINE_BREAK]
     print(LINE_BREAK)
-    print("|  nodes  | 1{}CPUS{}64{}128{}160{}192{}256{}| 1{}GPUS{}4{} |  nodes  |".format("."*12, "."*13, "."*30, "."*13,"."*21,"."*21, " "*(CGGAP-1), "."*24, "."*23, " "*0))
+    print("|  nodes  | 1{}CPUS{}64{}128{}192{}256{}| 1{}GPUS{}4{} |  nodes  |".format("."*12, "."*13, "."*30,"."*29,"."*29, " "*(CGGAP-1), "."*24, "."*23, " "*0))
     print(LINE_BREAK)
     for i in range(NUM_COMPUTE_NODES):
         node_line = " " + colorize("hal-dgx", check_load(all_cpus[i]))+" "
