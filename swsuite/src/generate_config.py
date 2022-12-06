@@ -1,10 +1,11 @@
 import subprocess
-import yaml
 from collections import OrderedDict
 
-# adding comment
-
 def generate_config():
+    """
+    Generates a configurations file for a chosen node based on the sinfo command.
+    Writes to the configuration yaml file
+    """
     
     config_as_dict = get_data_for_config()
 
@@ -28,30 +29,35 @@ def generate_config():
         file.write('...')
 
 def get_data_for_config():
+    """
+    Retrieves, parses, and fills in the data needed for the configuration file
+    """
     
     #node_info = subprocess.check_output(['sh','generate_config.sh'], stderr=subprocess.STDOUT)
     node_info = b'NODELIST             S:C:T      MEMORY    GRES       \nhal[01-16]           2:20:4     256000    gpu:v100:4 \nhal-data             2:10:2     128000    (null)     \n'
     available_nodes = node_info.decode("utf-8").split('\n')
 
     print(node_info.decode("utf-8"))
+    print("Note: If running on Python 2, please add double quotations to any input")
     node_selection = input("Enter the node you would like to configure with with: ")
     is_node_selection_valid = False
     i = 0
     for node in available_nodes:
-        if node_selection in node:
-            print("node name: "  + node_selection)
+        if (node == ""):
+            break
+        
+        components = node.split()
+        
+        if components[0] == node_selection.strip(" ") and node_selection in node:
             node_selection = available_nodes[i]
             is_node_selection_valid = True
-            print("FOUND")
-            
+            break
         else:
             i = i + 1
 
 
     if is_node_selection_valid == True:
     
-        components = node_selection.split()
-
         if is_input_null(components[1]):
             sct = [0, 0, 0]
         else:
@@ -95,12 +101,9 @@ def get_data_for_config():
         config['HOURS_DEFAULT'] = 4
         config['HOURS'] = 24
 
-
         config['TIME'] = "24:00:00"
-
         
         config['MULTIPLIER'] = 1
-
 
         config['CPU_PER_GPU_LL'] = 16
         config['CPU_PER_GPU_UL'] = 40
@@ -139,6 +142,14 @@ def get_data_for_config():
         print("Node doesn't exist")
 
 def verify(config_data):
+    """
+    Verify with user whether the information collected is correct or not 
+
+    Parameters
+    ----------
+    config_data : ordered dictionary 
+        An ordered dictionary contaning key:value pairs of configuration settings
+    """
 
     is_config_correct = False
 
@@ -147,7 +158,7 @@ def verify(config_data):
         verify_data_response = input("Would you like to modify or add the config [Y]/[N]: ").upper()
         valid_changes_made = False
         if (verify_data_response == "Y"):
-            modification_response = input("Enter [key]:[value] pairs seperated by a commma that should be modified or added \n")
+            modification_response = input("Enter [key]:[value] pairs seperated by a commma that should be modified or added (case sensitive) \n")
             list_of_modifications = modification_response.split(",")
             for item in list_of_modifications:
                 item = item.strip(" ")    
@@ -186,8 +197,16 @@ def is_input_null(input):
         return True
     return False
 
-    
 def print_dialog(config_data):
+    """
+    Prints the configurations to console 
+
+    Parameters
+    ----------
+    config_data : ordered dictionary 
+        An ordered dictionary contaning key:value pairs of configuration settings
+    """
+
     dialog = ""
     for key, value in config_data.items():
         dialog = dialog + str(key) + " : "  + str(value) + "\n"
@@ -197,3 +216,4 @@ def print_dialog(config_data):
     
 if __name__ == '__main__':
     generate_config()
+ 
