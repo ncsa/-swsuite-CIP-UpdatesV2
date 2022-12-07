@@ -14,10 +14,14 @@ def generate_config():
 
     config_as_dict = verify(config_data=config_as_dict)
     #print(config_as_dict)
-  
+    counter = 1
 
     with open('../conf/config.yaml', 'w') as file:
 
+        with open('../conf/license_for_config.txt', 'r') as license_file: 
+            for line in license_file:
+                file.write(line)
+        file.write('#################################### Defaults and Limits ###########################################')
         file.write('---')
         file.write('\n')
         for key, value in config_as_dict.items():
@@ -25,6 +29,15 @@ def generate_config():
             file.write(key + ': ')
             file.write(str(value))
             file.write('\n')
+
+            if counter == 31:
+                file.write('################################# Some Environment Variables #######################################\n')
+            elif counter == 34:
+                file.write('###################################### Other Parameters ############################################\n')
+            elif counter == 37:
+                file.write('################################### Error and Warning Codes ########################################')
+
+            counter = counter + 1
         
         file.write('...')
 
